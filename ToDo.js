@@ -76,12 +76,15 @@ export default class ToDo extends Component {
                         <View style={styles.actions}>
                             <TouchableOpacity onPressOut={this._startEditing}>
                                 <View style={styles.actionContainer}>
-                                    <Text style={styles.actionText}>edit</Text>
+                                    <Text style={styles.actionText}>EDIT</Text>
                                 </View>
                             </TouchableOpacity>
-                            <TouchableOpacity onPressOut={ () => deleteToDo(id) }>
+                            <TouchableOpacity onPressOut={ (event) => {
+                                event.stopPropagation;
+                                deleteToDo(id);
+                            }}>
                                 <View style={styles.actionContainer}>
-                                    <Text style={styles.actionText}>del</Text>
+                                    <Text style={styles.actionText}>DEL</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
@@ -89,7 +92,8 @@ export default class ToDo extends Component {
             </View>
         )
     }
-    _toggleComplete = () => {
+    _toggleComplete = (event) => {
+        event.stopPropagation();
         const {isCompleted, uncompleteToDo, completeToDo, id} = this.props;
         if(isCompleted){
             uncompleteToDo(id)
@@ -97,10 +101,12 @@ export default class ToDo extends Component {
             completeToDo(id)
         }
     }
-    _startEditing = () => {
+    _startEditing = (event) => {
+        event.stopPropagation
         this.setState({isEditing: true})
     }
-    _finishEditing = () => {
+    _finishEditing = (event) => {
+        event.stopPropagation
         const {todoValue} = this.state;
         const {id, updateToDo} = this.props;
         updateToDo(id, todoValue);
@@ -123,11 +129,11 @@ const styles = StyleSheet.create({
         paddingBottom: 15,
     },
     check: {
-        width: 15,
-        height: 15,
+        width: 20,
+        height: 20,
         borderRadius: 5,
         backgroundColor: "#C1C2FF",
-        marginRight: 15
+        marginRight: 10
     },
     checked: {
         backgroundColor: "#C1C2FF"
@@ -136,15 +142,17 @@ const styles = StyleSheet.create({
         backgroundColor: "#bbb"
     },
     text: {
-        fontSize: 15,
+        fontSize: 16,
         width: width / 2,
         color: "#bbb"
     },
     completedText: {
+        fontSize: 16,
         color: "#bbb",
         textDecorationLine: "line-through"
     },
     uncompletedText: {
+        fontSize: 16,
         color:"#353839"
     },
     column: {
@@ -161,5 +169,9 @@ const styles = StyleSheet.create({
     input: {
         fontSize: 15,
         width: width / 2,
+    },
+    actionText: {
+        color: "#C1C2FF",
+        fontWeight: 'bold',
     }
 })

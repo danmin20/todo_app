@@ -19,7 +19,8 @@ export default class App extends React.Component {
   state = {
     newToDo: "",
     loadedToDos: false,
-    toDos: {}
+    toDos: {},
+    fontLoaded: false
   };
   componentDidMount = () => {
     this._loadToDos();
@@ -32,11 +33,11 @@ export default class App extends React.Component {
     return (
       <View style={styles.container}>
         <StatusBar barStyle="light-content" />
-        <Text style={styles.title}>Must To Do</Text>
+        <Text style={styles.title}>제발 좀 해</Text>
         <View style={styles.card}>
           <TextInput
             style={styles.input}
-            placeholder={"New To Do"}
+            placeholder={"입력하렴"}
             value={newToDo}
             onChangeText={this._controlNewToDo}
             placeholderTextColor={"#999"}
@@ -177,10 +178,10 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "white",
-    fontSize: 20,
+    fontSize: 25,
     marginTop: 50,
-    fontWeight: "200",
-    marginBottom: 30,
+    fontWeight: 'bold',
+    marginBottom: 30
   },
   card: {
     backgroundColor: "white",
@@ -193,9 +194,9 @@ const styles = StyleSheet.create({
     padding: 13,
     borderBottomColor: "#bbb",
     borderBottomWidth: 0.5,
-    fontSize: 18
+    fontSize: 18,
   },
   toDos: {
-    alignItems: "center"
+    alignItems: "center",
   }
 });
