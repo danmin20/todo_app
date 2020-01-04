@@ -1,4 +1,7 @@
-import React from 'react';
+import React, {Component} from 'react';
+import { LinearGradient } from "expo-linear-gradient";
+import { Feather } from "@expo/vector-icons";
+
 import {
   StyleSheet,
   Text,
@@ -15,7 +18,7 @@ import uuidv1 from "uuid/v1";
 
 const { height, width } = Dimensions.get("window");
 
-export default class App extends React.Component {
+export default class App extends Component {
   state = {
     newToDo: "",
     loadedToDos: false,
@@ -27,23 +30,29 @@ export default class App extends React.Component {
   }
   render() {
     const { newToDo, loadedToDos, toDos } = this.state;
-    if(!loadedToDos){
-      return <AppLoading/>
+    if (!loadedToDos) {
+      return <AppLoading />;
     }
     return (
-      <View style={styles.container}>
+      <LinearGradient
+        colors={["#D9BAFF", "#5E5E83"]}
+        style={styles.container}
+      >
         <StatusBar barStyle="light-content" />
-        <Text style={styles.title}>제발 좀 해</Text>
-        <View style={styles.card}>
+        <Feather style={styles.title} size={45} name="list"/>
+        <LinearGradient
+          colors={["white", "#E6E6E6"]}
+          style={styles.card}
+        >
           <TextInput
             style={styles.input}
-            placeholder={"입력하렴"}
+            placeholder={"TO-DO"}
             value={newToDo}
             onChangeText={this._controlNewToDo}
             placeholderTextColor={"#999"}
             returnKeyType={"done"}
             autoCorrect={false}
-            onSubmitEditing={ this._addToDo }
+            onSubmitEditing={this._addToDo}
           />
           <ScrollView contentContainerStyle={styles.toDos}>
             {Object.values(toDos)
@@ -57,11 +66,10 @@ export default class App extends React.Component {
                   updateToDo={this._updateToDo}
                   {...toDo}
                 />
-              ))
-            }
+              ))}
           </ScrollView>
-        </View>
-      </View>
+        </LinearGradient>
+      </LinearGradient>
     );
   }
   _controlNewToDo = text => {
@@ -92,8 +100,8 @@ export default class App extends React.Component {
           }
         }
         const newState = {
-          newTodo: "",
           ...prevState,
+          newTodo: "",
           toDos: {
             ...prevState.toDos,
             ...newToDoObject
@@ -104,11 +112,10 @@ export default class App extends React.Component {
       })
     }
   }
-  _deleteToDo = (id,newTodo) => {
+  _deleteToDo = (id) => {
     this.setState(prevState => {
       const toDos = prevState.toDos;
       delete toDos[id];
-      delete toDos[newTodo]
       const newState = {
         ...prevState,
         ...toDos
@@ -173,20 +180,16 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#C1C2FF",
     alignItems: 'center',
   },
   title: {
     color: "white",
-    fontSize: 25,
     marginTop: 50,
-    fontWeight: 'bold',
     marginBottom: 30
   },
   card: {
-    backgroundColor: "white",
     flex: 1,
-    width: width - 25,
+    width: width - 45,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
   },

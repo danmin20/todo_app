@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "To Do App",
+    "name": "투두",
     "slug": "todo_app",
     "privacy": "public",
     "sdkVersion": "36.0.0",
