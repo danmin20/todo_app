@@ -1,5 +1,5 @@
 # To Do App
-To Do App Made With React Native
+To Do App made with React Native
 
 ## App
 Name : "투두"<br/>
